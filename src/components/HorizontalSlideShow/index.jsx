@@ -12,7 +12,6 @@ const Carousel = (props) => {
   const [touchPosition, setTouchPosition] = useState(null)
 
   useEffect(() => {
-    console.log(children, 'tét1')
     setLength(children.length)
     setIsRepeating(infiniteLoop && children.length > show)
   }, [children, infiniteLoop, show])
@@ -21,7 +20,6 @@ const Carousel = (props) => {
     if (isRepeating) {
       if (currentIndex === show || currentIndex === length) {
         setTransitionEnabled(true)
-        console.log(children, 'tét2')
       }
     }
   }, [currentIndex, isRepeating, show, length])
@@ -78,8 +76,8 @@ const Carousel = (props) => {
 
   const renderExtraPrev = () => {
     let output = []
-    for (let index = 0; index < show; index++) {
-      output.push(children[length - 1 - index])
+    for (let i = 0; i < show; i++) {
+      output.push(children[length - 1 - i])
     }
     output.reverse()
     return output
@@ -87,25 +85,15 @@ const Carousel = (props) => {
 
   const renderExtraNext = () => {
     let output = []
-    for (let index = 0; index < show; index++) {
-      output.push(children[index])
+    for (let i = 0; i < show; i++) {
+      output.push(children[i])
     }
     return output
-  }
-
-  const goToImg = (idx) => {
-    console.log(idx);
   }
 
   return (
     <div className="carousel-container">
       <div className="carousel-wrapper">
-        {
-          (isRepeating || currentIndex > 0) &&
-          <button onClick={prev} className="left-arrow">
-            &lt;
-          </button>
-        }
         <div
           className="carousel-content-wrapper"
           onTouchStart={handleTouchStart}
@@ -118,7 +106,6 @@ const Carousel = (props) => {
               transition: !transitionEnabled ? 'none' : undefined,
             }}
             onTransitionEnd={() => handleTransitionEnd()}
-            onClick={() => goToImg(currentIndex)}
           >
             {
               (length > show && isRepeating) &&
@@ -133,12 +120,6 @@ const Carousel = (props) => {
             }
           </div>
         </div>
-        {
-          (isRepeating || currentIndex < (length - show)) &&
-          <button onClick={next} className="right-arrow">
-            &gt;
-          </button>
-        }
       </div>
     </div>
   )
