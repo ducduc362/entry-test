@@ -94,6 +94,12 @@ const Carousel = (props) => {
   return (
     <div className="carousel-container">
       <div className="carousel-wrapper">
+        {
+          (isRepeating || currentIndex > 0) &&
+          <button onClick={prev} className="left-arrow">
+            &lt;
+          </button>
+        }
         <div
           className="carousel-content-wrapper"
           onTouchStart={handleTouchStart}
@@ -120,6 +126,12 @@ const Carousel = (props) => {
             }
           </div>
         </div>
+        {
+          (isRepeating || currentIndex < (length - show)) &&
+          <button onClick={next} className="right-arrow">
+            &gt;
+          </button>
+        }
       </div>
     </div>
   )
